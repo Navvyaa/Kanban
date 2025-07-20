@@ -1,5 +1,5 @@
 // import react from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Column from './Column';
 import FilterPanel from './FilterPanel';
 import { useAppSelector, useAppDispatch } from '../hooks/useReduxHooks';
@@ -7,7 +7,7 @@ import type { ColumnType, TaskType } from '../types';
 import type { RootState } from '../redux/store';
 import TaskModal from './TaskModal';
 import { deleteTask, moveTask } from '../features/tasks/taskSlice';
-import { Presentation } from "lucide-react";
+import { Presentation, Loader } from "lucide-react";
 
 
 const KanbanBoard: React.FC = () => {
@@ -18,6 +18,16 @@ const KanbanBoard: React.FC = () => {
   const [activeColumnId, setActiveColumnId] = useState<string | null>(null);
   const [editingTask, setEditingTask] = useState<TaskType | null>(null);
   const [dragOverColumn, setDragOverColumn] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); 
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleEditTask = (task: TaskType) => {
     setEditingTask(task);
@@ -57,6 +67,29 @@ const KanbanBoard: React.FC = () => {
 
     )
   }
+
+  
+  if (isLoading) {
+    return (
+      <div className="w-full min-h-screen bg-neutral-800 flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center gap-6">
+          <div className="relative">
+            <Loader size={40} className="w-12 h-12 text-blue-500 animate-spin" />
+            
+          </div>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3 justify-center">
+             
+              Loading Kanban Board
+            </h2>
+            <p className="text-neutral-400">Preparing your workspace...</p>
+          </div>
+          
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='w-full min-h-screen relative text-white bg-neutral-600  flex flex-col'>
       <div className="sticky  top-0 z-40 bg-neutral-800/80 backdrop-blur-md mb-5 border-b border-neutral-700">
@@ -64,7 +97,7 @@ const KanbanBoard: React.FC = () => {
           <div className="flex flex-col justify-center sm:items-center gap-4">
             <div>
               <h1 className="text-3xl text-center font-bold text-white mb-2 flex items-center gap-8 justify-center">
-                <Presentation size={30}/> <span>Kanban Board</span> 
+                <Presentation size={30} /> <span>Kanban Board</span>
               </h1>
               <p className="text-neutral-400">
                 Manage your tasks efficiently with drag & drop
@@ -82,27 +115,26 @@ const KanbanBoard: React.FC = () => {
 
 
 
-      {/* <div className='container mx-auto py-8'> */}
-        <div className=' flex flex-col lg:flex-row h-full lg:justify-center gap-4 mb-4 '>
-          {columns.map((column) => {
-            
-            const columnTasks = getFilteredTasks(column.id);
-            return (
+      <div className=' flex flex-col lg:flex-row h-full lg:justify-center gap-4 mb-4 '>
+        {columns.map((column) => {
+
+          const columnTasks = getFilteredTasks(column.id);
+          return (
             <Column
-             key={column.id}
-                column={column}
-                tasks={columnTasks}
-                onAddTask={(id) => setActiveColumnId(id)}
-                onEditTask={handleEditTask}
-                onDeleteTask={handleDeleteTask}
-                onDragOver={() => handleColumnDragOver(column.id)}
-                onDrop={handleDrop}
-                isDragOver={dragOverColumn === column.id}
+              key={column.id}
+              column={column}
+              tasks={columnTasks}
+              onAddTask={(id) => setActiveColumnId(id)}
+              onEditTask={handleEditTask}
+              onDeleteTask={handleDeleteTask}
+              onDragOver={() => handleColumnDragOver(column.id)}
+              onDrop={handleDrop}
+              isDragOver={dragOverColumn === column.id}
             />
-            );
-          })}
-        </div>
-      {/* </div> */}
+          );
+        })}
+      </div>
+
 
       {activeColumnId && (
         <TaskModal

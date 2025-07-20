@@ -67,13 +67,13 @@ const Column: React.FC<ColumnProps> = ({ column, tasks, onAddTask, onEditTask, o
                     </div>
                 ):(
                     <div>
-                        {tasks.map((task,index)=>(
+                        {tasks.slice().reverse().map((task, index) => (
                             <TaskCard
-                            key={task.id}
-                            task={task}
-                            onEdit={onEditTask}
-                            onDelete={onDeleteTask}
-                            index={index}
+                                key={task.id}
+                                task={task}
+                                onEdit={onEditTask}
+                                onDelete={onDeleteTask}
+                                index={index}
                             />
                         ))}
                     </div>
