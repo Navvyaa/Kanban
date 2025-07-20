@@ -7,19 +7,20 @@ import type { ColumnType, TaskType } from '../types';
 import type { RootState } from '../redux/store';
 import TaskModal from './TaskModal';
 import { deleteTask, moveTask } from '../features/tasks/taskSlice';
-import { Presentation, Loader } from "lucide-react";
+import { Presentation, Loader,Undo,Redo } from "lucide-react";
+import { ActionCreators } from 'redux-undo';
 
 
 const KanbanBoard: React.FC = () => {
   const dispatch = useAppDispatch();
   const columns: ColumnType[] = useAppSelector((state: RootState) => state.columns);
-  const tasks: TaskType[] = useAppSelector((state: RootState) => state.tasks);
+  const tasks: TaskType[] = useAppSelector((state: RootState) => state.tasks.present);
   const filters = useAppSelector((state: RootState) => state.filters);
   const [activeColumnId, setActiveColumnId] = useState<string | null>(null);
   const [editingTask, setEditingTask] = useState<TaskType | null>(null);
   const [dragOverColumn, setDragOverColumn] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const taskHistory=useAppSelector((state:RootState)=> state.tasks)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -74,17 +75,14 @@ const KanbanBoard: React.FC = () => {
       <div className="w-full min-h-screen bg-neutral-800 flex flex-col items-center justify-center">
         <div className="flex flex-col items-center gap-6">
           <div className="relative">
-            <Loader size={40} className="w-12 h-12 text-blue-500 animate-spin" />
-            
+            <Loader size={40} className="w-12 h-12 text-blue-500 animate-spin" />            
           </div>
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3 justify-center">
-             
+            <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3 justify-center">             
               Loading Kanban Board
             </h2>
             <p className="text-neutral-400">Preparing your workspace...</p>
-          </div>
-          
+          </div>          
         </div>
       </div>
     );
@@ -108,8 +106,25 @@ const KanbanBoard: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className='ml-4'>
+        <div className='ml-4 flex flex-col lg:flex-row lg:justify-between items-center gap-4'>
           <FilterPanel />
+          <div className='flex gap-6 px-4 mb-2 texxt-sm mr-6'>
+              <button
+              onClick={()=>dispatch(ActionCreators.undo())}
+              disabled={taskHistory.past.length===0}
+              className=' bg-neutral-800 border border-neutral-900 px-2 flex gap-3 items-center py-1 rounded-lg hover:border-neutral-700'
+              >
+                <Undo size={16}/><span>Undo</span>
+                
+              </button>
+              <button
+              onClick={()=>dispatch(ActionCreators.redo())}
+              disabled={taskHistory.future.length === 0}
+              className=' bg-neutral-800 border border-neutral-900 py-1  px-2 rounded-lg flex gap-3 items-center hover:border-neutral-700'
+              >
+                <Redo size={16}/> <span>Redo</span>                
+              </button>
+          </div>
         </div>
       </div>
 

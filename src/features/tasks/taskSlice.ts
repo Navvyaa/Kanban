@@ -1,6 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { TaskType } from "../../types/index";
+import undoable, { includeAction } from "redux-undo";
 
 const initialState: TaskType[]=[];
 
@@ -37,4 +38,8 @@ const taskSlice= createSlice({
 });
 
 export const {addTask ,editTask, moveTask, deleteTask}= taskSlice.actions;
-export default taskSlice.reducer;
+
+export default undoable(taskSlice.reducer,{
+    limit:20,
+    filter: includeAction([addTask.type,editTask.type, moveTask.type, deleteTask.type]),
+});
