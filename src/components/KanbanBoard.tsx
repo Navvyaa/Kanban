@@ -7,7 +7,7 @@ import type { ColumnType, TaskType } from '../types';
 import type { RootState } from '../redux/store';
 import TaskModal from './TaskModal';
 import { deleteTask, moveTask } from '../features/tasks/taskSlice';
-import { Presentation, Loader,Undo,Redo } from "lucide-react";
+import {  Loader,Undo,Redo } from "lucide-react";
 import { ActionCreators } from 'redux-undo';
 
 
@@ -89,24 +89,24 @@ const KanbanBoard: React.FC = () => {
   }
 
   return (
-    <div className='w-full min-h-screen relative text-white bg-neutral-600  flex flex-col'>
+    <div className='w-full min-h-screen relative text-white bg-neutral-500  flex flex-col'>
       <div className="sticky  top-0 z-40 bg-neutral-800/80 backdrop-blur-md mb-5 border-b border-neutral-700">
         <div className=" bg-transparent   py-6 flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center sm:items-center gap-4">
             <div>
-              <h1 className="text-3xl text-center font-bold text-white mb-2 flex items-center gap-8 justify-center">
-                <Presentation size={30} /> <span>Kanban Board</span>
+              <h1 className="lg:text-3xl text-xl text-center font-bold text-white mb-2 flex items-center gap-8 justify-center">
+                Kanban Board
               </h1>
               <p className="text-neutral-400">
                 Manage your tasks efficiently with drag & drop
               </p>
             </div>
-            <div className="text-sm text-neutral-400">
+            <div className="text-sm text-neutral-400 text-center">
               Total Tasks: <span className="text-white font-semibold">{tasks.length}</span>
             </div>
           </div>
         </div>
-        <div className='ml-4 flex flex-col lg:flex-row lg:justify-between items-center gap-4'>
+        <div className='ml-4 flex flex-col justify-start lg:flex-row lg:justify-between lg:items-center items-start gap-4'>
           <FilterPanel />
           <div className='flex gap-6 px-4 mb-2 texxt-sm mr-6'>
               <button

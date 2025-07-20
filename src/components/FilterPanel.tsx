@@ -11,13 +11,13 @@ const FilterPanel: React.FC = () => {
     const hasActiveFilter = priority || assignee;
 
     return (
-        <div className="flex items-center flex-row gap-4 mx-2 my-1 text-white/70 mb-3">
-            <div className="flex items-center gap-3">
+        <div className="flex items-center flex-row lg:gap-4 mx-2 my-1 gap-2 text-white/70 mb-3 flex-wrap">
+            <div className="flex items-center gap-3 lg:gap-1">
                 <Filter size={20} className="text-blue-400" />
-                <span className="font-semibold text-lg text-white">Filters</span>
+                <span className="font-semibold text-lg text-white">Filters: </span>
             </div>
             <div className="relative">
-                <select className="appearance-none p-2 bg-neutral-800 border border-neutral-900  rounded-lg hover:border-neutral-700" value={priority} onChange={(e) => dispatch(setPriority(e.target.value as "" | "low" | "medium" | "high"))} >
+                <select className="appearance-none p-2 bg-neutral-800 border border-neutral-900 px-4 pr-8 rounded-lg hover:border-neutral-700" value={priority} onChange={(e) => dispatch(setPriority(e.target.value as "" | "low" | "medium" | "high"))} >
                     <option value="">All</option>
                     <option value="high">High</option>
                     <option value="medium">Medium</option>
@@ -35,7 +35,7 @@ const FilterPanel: React.FC = () => {
                     value={assignee}
                     onChange={(e) => dispatch(setAssignee(e.target.value))}
                 >
-                    <option value="">All Assignees</option>
+                    <option value="">All Assignee</option>
                     {users.map((user) => (
                         <option key={user.id} value={user.id}>
                             {user.name}
@@ -60,8 +60,8 @@ const FilterPanel: React.FC = () => {
                             transition-all duration-200
                         "
                 >
-                    <X size={14} />
-                    Clear All Filters
+                    <X size={20} />
+                    Clear Filters
                 </button>
             )}
 

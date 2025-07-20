@@ -26,7 +26,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete,index }) => 
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         className={`
-                 cursor-move p-3 m-2 rounded-xl border-2 text-neutral-400
+                 cursor-move p-3 m-2 rounded-xl border-2 text-neutral-200
                 transition-all duration-300 ease-in-out
                 hover:scale-[1.02] hover:shadow-lg active:scale-95
                 
@@ -38,10 +38,10 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete,index }) => 
             }}>
             <div className="flex flex-col gap-6">
                 <div className="flex justify-between w-full">
-                    <h3 className="font-semibold text-lg">{task.title}</h3>
+                    <h3 className="font-semibold text-lg capitalize">{task.title}</h3>
                     <p
                         className={`rounded-xl tracking-wider mx-2 px-2 py-1 uppercase ${task.priority === 'high' ?
-                            "bg-red-300 text-red-950" : task.priority === "medium" ? "bg-blue-300 text-blue-950" : "bg-yellow-300 text-yellow-800"
+                            "bg-red-300 text-red-950" : task.priority === "medium" ? "bg-amber-300 text-amber-950" : "bg-green-300 text-green-800"
                             }`}
                     >
                         {task.priority}
