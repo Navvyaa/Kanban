@@ -30,7 +30,7 @@ const Column: React.FC<ColumnProps> = ({ column, tasks, onAddTask, onEditTask, o
             onDrop={handleDrop}
             className={`
                 text-white h-[500px] lg:h-[800px] flex flex-col 
-                border border-neutral-800 w-full 
+                border border-neutral-800 w-[98%] 
                 mx-1 mb-4 lg:mb-0 lg:mx-2 rounded-xl 
                 bg-gradient-to-b from-neutral-800/50 to-neutral-900/50
                 backdrop-blur-sm shadow-lg
@@ -48,8 +48,8 @@ const Column: React.FC<ColumnProps> = ({ column, tasks, onAddTask, onEditTask, o
                 <button
                     onClick={() => onAddTask(column.id)}
                     className="flex items-center gap-2 px-2 py-1 
-                        bg-blue-500 hover:bg-blue-600 
-                        text-white text-base font-medium rounded-lg
+                        bg-blue-500 hover:bg-blue-600  rounded-full
+                        text-white text-base font-medium sm:rounded-lg
                         transition-all duration-200 hover:scale-105
                         active:scale-95 shadow-md hover:shadow-lg"
                 >

@@ -90,7 +90,7 @@ const KanbanBoard: React.FC = () => {
 
   return (
     <div className='w-full min-h-screen relative text-white bg-neutral-500  flex flex-col'>
-      <div className="sticky  top-0 z-40 bg-neutral-800/80 backdrop-blur-md mb-5 border-b border-neutral-700">
+      <div className=" bg-neutral-800/80 backdrop-blur-md ">
         <div className=" bg-transparent   py-6 flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center sm:items-center gap-4">
             <div>
@@ -106,7 +106,8 @@ const KanbanBoard: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className='ml-4 flex flex-col justify-start lg:flex-row lg:justify-between lg:items-center items-start gap-4'>
+        </div>
+        <div className=' bg-neutral-800/80 backdrop-blur-md mb-5 border-b border-neutral-700 sticky  top-0 z-40 flex flex-col justify-start lg:flex-row lg:justify-between lg:items-center items-start gap-4'>
           <FilterPanel />
           <div className='flex gap-6 px-4 mb-2 texxt-sm mr-6'>
               <button
@@ -126,7 +127,7 @@ const KanbanBoard: React.FC = () => {
               </button>
           </div>
         </div>
-      </div>
+      {/* </div> */}
 
 
 
