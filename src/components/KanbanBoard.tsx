@@ -8,7 +8,7 @@ import TaskModal from './TaskModal';
 import { deleteTask, moveTask } from '../features/tasks/taskSlice';
 import {  Loader,Undo,Redo } from "lucide-react";
 import { ActionCreators } from 'redux-undo';
-import { mockWebSocket } from '../utils/MockWebsocket';
+import { mockWebSocket } from '../utils/mockWebsocket';
 
 const KanbanBoard: React.FC = () => {
   const dispatch = useAppDispatch();
