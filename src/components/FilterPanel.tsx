@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../hooks/useReduxHooks";
 import { setAssignee, setPriority, clearFilters } from "../features/filters/filterSlice";
-import type { RootState } from "../redux/store"; // Adjust the path to where your store's RootState is exported
+import type { RootState } from "../redux/store"; 
 import { users } from "../data/users";
-import { Filter, X } from 'lucide-react'
+import { Filter, X } from 'lucide-react';
 
 
 const FilterPanel: React.FC = () => {

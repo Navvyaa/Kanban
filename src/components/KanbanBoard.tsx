@@ -1,4 +1,3 @@
-// import react from 'react';
 import { useState, useEffect } from 'react';
 import Column from './Column';
 import FilterPanel from './FilterPanel';
@@ -9,7 +8,7 @@ import TaskModal from './TaskModal';
 import { deleteTask, moveTask } from '../features/tasks/taskSlice';
 import {  Loader,Undo,Redo } from "lucide-react";
 import { ActionCreators } from 'redux-undo';
-
+import { mockWebSocket } from '../utils/MockWebsocket';
 
 const KanbanBoard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +28,10 @@ const KanbanBoard: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(()=>{
+    mockWebSocket(30000);
+  },[]);
 
   const handleEditTask = (task: TaskType) => {
     setEditingTask(task);
